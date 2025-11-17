@@ -12,35 +12,42 @@ import {
     FormControlLabel,
     FormControlLabelText,
     Heading,
+    Icon,
     Input,
     InputField,
     KeyboardAvoidingView,
     ScrollView,
+    Text,
     VStack,
 } from '@gluestack-ui/themed';
 import { zodResolver } from '@hookform/resolvers/zod';
-import React from 'react';
+import { PlusIcon } from 'lucide-react-native';
+import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Platform } from 'react-native';
-
-
+import { Image, Platform } from 'react-native';
+import { pickDocument } from '../../util/document-picker';
 export function SchoolForm({
     onSubmit,
+    defaultValues,
     isLoading,
 }: SchoolFormProps) {
+    const [image, setImage] = useState<string>('')
     const {
         control,
         handleSubmit,
         formState: { errors },
     } = useForm<SchoolFormData>({
         resolver: zodResolver(schoolSchema),
-        defaultValues: {
+        defaultValues: defaultValues || {
             name: '',
             address: '',
             numberOfClasses: 0
         },
     });
-
+    const handleImage = async () => {
+        const selectedImage = await pickDocument()
+        setImage(selectedImage ?? '')
+    }
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -50,18 +57,31 @@ export function SchoolForm({
                 showsVerticalScrollIndicator={false}>
                 <Box p="$4" flex={1} justifyContent="center">
                     <VStack space="xl">
-                        <Heading>Cadastro de Escola</Heading>
+                        <Heading>Register Of School</Heading>
+                        {image ? (
+                            <Image source={{ uri: image }}
+                                style={{ width: '100%', height: 200 }}
+                            />
+                        ) :
+                            (<Button onPress={handleImage} mt="$4">
+                                <Icon as={PlusIcon} />
+                                <Text>
+                                    Add Photo of School
+                                </Text>
+                            </Button>
+                            )
+                        }
                         <Controller
                             control={control}
                             name="name"
                             render={({ field: { onChange, onBlur, value } }) => (
                                 <FormControl isInvalid={!!errors.name} isRequired>
                                     <FormControlLabel>
-                                        <FormControlLabelText>Nome da Escola</FormControlLabelText>
+                                        <FormControlLabelText>Name School</FormControlLabelText>
                                     </FormControlLabel>
                                     <Input>
                                         <InputField
-                                            placeholder="Ex: Escola Estadual ABC"
+                                            placeholder="Ex: School Estadual ABC"
                                             onBlur={onBlur}
                                             onChangeText={onChange}
                                             value={value}
@@ -83,7 +103,7 @@ export function SchoolForm({
                             render={({ field: { onChange, onBlur, value } }) => (
                                 <FormControl isInvalid={!!errors.address} isRequired>
                                     <FormControlLabel>
-                                        <FormControlLabelText>Endereço</FormControlLabelText>
+                                        <FormControlLabelText>Address</FormControlLabelText>
                                     </FormControlLabel>
                                     <Input>
                                         <InputField
@@ -110,7 +130,7 @@ export function SchoolForm({
                                 <FormControl isInvalid={!!errors.numberOfClasses} isRequired>
                                     <FormControlLabel>
                                         <FormControlLabelText>
-                                            Número de Turmas
+                                            number Of Classes
                                         </FormControlLabelText>
                                     </FormControlLabel>
                                     <Input>
@@ -137,7 +157,7 @@ export function SchoolForm({
                             isDisabled={isLoading}
                             mt="$4">
                             <ButtonText>
-                                {isLoading ? 'Salvando...' : 'Salvar Escola'}
+                                {isLoading ? 'Saving...' : 'Save School'}
                             </ButtonText>
                         </Button>
                     </VStack>

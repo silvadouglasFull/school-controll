@@ -1,31 +1,19 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { ShcoolContextProvider } from '@/app/(modules)/school/context/school-context-provider';
+import { config } from '@gluestack-ui/config';
+import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
-
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
-import '@/global.css';
-
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-
   return (
-    
-    <GluestackUIProvider mode="dark">
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <GluestackUIProvider config={config}>
+      <ShcoolContextProvider>
+        <Stack>
+          <Stack.Screen name="index" options={{ title: 'Home' }} />
+          <Stack.Screen name="school/index" options={{ title: 'Escolas' }} />
+          <Stack.Screen name="school/new" options={{ title: 'Nova Escola' }} />
+          <Stack.Screen name="school/edit/[id]" options={{ title: 'Editar Escola' }} />
+        </Stack>
+      </ShcoolContextProvider>
     </GluestackUIProvider>
-  
   );
 }

@@ -1,4 +1,4 @@
-import { SchoolItem } from "@/app/(modules)/school/components/types/table-school";
+import { SchoolItem } from "@/app/(modules)/school/components/types/school-item";
 import { faker } from '@faker-js/faker';
 
 export const schoolItems: SchoolItem[] = Array.from({ length: 10 }, () => ({
@@ -6,4 +6,5 @@ export const schoolItems: SchoolItem[] = Array.from({ length: 10 }, () => ({
     name: faker.company.name(),
     address: faker.location.streetAddress(),
     numberOfClasses: faker.number.int({ min: 5, max: 30 }),
+    image: faker.image.url()
 }));

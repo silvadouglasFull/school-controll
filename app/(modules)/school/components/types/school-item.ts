@@ -3,4 +3,5 @@ export type SchoolItem = {
     name: string
     address: string
     numberOfClasses: number
+    image?: string
 }
