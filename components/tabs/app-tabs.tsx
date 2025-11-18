@@ -1,25 +1,15 @@
+import type { AppTabs as Props } from '@/components/tabs/types/app-tabs';
 import { Box, Button, ButtonIcon, HStack } from '@gluestack-ui/themed';
 import { useRouter } from 'expo-router';
 import { Home, Plus, SlidersHorizontal } from 'lucide-react-native';
 import React from 'react';
 
-export const AppTabs = () => {
+export const AppTabs: React.FC<Props> = ({ handleFilter, handleNew }: Props) => {
     const router = useRouter();
 
     const handleHome = () => {
-        // Navega para a tela inicial do app. Ajuste a rota se necessário.
         router.push('/');
     };
-
-    const handleNew = () => {
-        router.push('/class/new');
-    };
-
-    const handleFilter = () => {
-        // Lógica para abrir modal de filtro ou navegar para tela de filtro
-        console.log('Botão de filtro pressionado');
-    };
-
     return (
         <Box
             position="absolute"
@@ -33,12 +23,9 @@ export const AppTabs = () => {
             px="$4"
         >
             <HStack justifyContent="space-between" alignItems="center">
-                {/* Botão Home */}
                 <Button variant="link" onPress={handleHome}>
                     <ButtonIcon as={Home} size="xl" />
                 </Button>
-
-                {/* Botão Central de Adicionar */}
                 <Box position="absolute" left="50%" top="50%" transform="translate(-50%, -75%)">
                     <Button
                         size="lg"
@@ -51,8 +38,6 @@ export const AppTabs = () => {
                         <ButtonIcon as={Plus} size="xl" />
                     </Button>
                 </Box>
-
-                {/* Botão Filtrar */}
                 <Button variant="link" onPress={handleFilter}>
                     <ButtonIcon as={SlidersHorizontal} size="xl" />
                 </Button>

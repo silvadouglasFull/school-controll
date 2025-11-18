@@ -1,5 +1,5 @@
-import { SchoolItem } from "@/app/(modules)/class/components/types/school-item";
+import { Item } from "@/app/(modules)/class/components/types/item";
 
-export type SchoolEditParams = Omit<SchoolItem, 'numberOfClasses'> & {
+export type SchoolEditParams = Omit<Item, 'numberOfClasses'> & {
     numberOfClasses: string;
 };

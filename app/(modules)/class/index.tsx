@@ -1,28 +1,18 @@
-import { schoolItems } from "@/app/(modules)/class/components/school-list-items/constants/school-items";
-import { SchoolItem } from "@/app/(modules)/class/components/school-list-items/school-list";
+import { Items } from "@/app/(modules)/class/components/list-items/constants/items";
+import { Item } from "@/app/(modules)/class/components/list-items/list";
+import { ModalDelete } from "@/app/(modules)/class/components/modal/delete-modal";
+import type { Item as ItemProps } from '@/app/(modules)/class/components/types/item';
+import { fetchMoreItems } from "@/app/(modules)/class/services/class";
+import { SkeletonLoading } from '@/components/skeleton/preview-loading';
+import { AppTabs } from '@/components/tabs/app-tabs';
 import { Button, ScrollView, Spinner, Text, View } from "@gluestack-ui/themed";
+import { useRouter } from "expo-router";
 import type React from "react";
 import { useState } from "react";
-import { AppTabs } from "./components/layout/app-tabs";
-import { SchoolModalDelete } from "./components/modal/school-delete-modal";
-import { SchoolSckleton } from "./components/skeleton/school-preview-loading";
-import type { SchoolItem as SchoolItemProps } from "./components/types/school-item";
-
-// Simula uma chamada de API para buscar mais itens
-const fetchMoreItems = (page: number): Promise<SchoolItemProps[]> => {
-    console.log(`Buscando página: ${page}`);
-    return new Promise(resolve => {
-        setTimeout(() => {
-            // Em um app real, você faria uma chamada de API aqui.
-            // Estamos apenas pegando mais itens da lista mockada.
-            const newItems = schoolItems.slice(page * 5, (page + 1) * 5);
-            resolve(newItems);
-        }, 1000);
-    });
-};
 
 const School: React.FC = () => {
-    const [items, setItems] = useState<SchoolItemProps[]>(schoolItems.slice(0, 5));
+    const { navigate } = useRouter()
+    const [items, setItems] = useState<ItemProps[]>(Items.slice(0, 5));
     const [page, setPage] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -37,25 +27,28 @@ const School: React.FC = () => {
 
     return (
         <View flex={1}>
-            <SchoolModalDelete />
+            <ModalDelete />
             <ScrollView flex={1} mb="$20">
                 {!items.length && isLoading && (
                     Array.from({ length: 5 }).map((_, index) => (
-                        <SchoolSckleton key={index} />
+                        <SkeletonLoading key={index} />
                     ))
                 )}
-                <SchoolItem items={items} />
+                <Item items={items} />
                 {isLoading ? (
                     <Spinner size="large" my="$4" />
                 ) : (
-                    items.length < schoolItems.length && (
+                    items.length < Items.length && (
                         <Button onPress={handleLoadMore} m="$4">
                             <Text>Load More</Text>
                         </Button>
                     )
                 )}
             </ScrollView>
-            <AppTabs />
+            <AppTabs
+                handleFilter={() => { }}
+                handleNew={() => navigate('/class/new')}
+            />
         </View>
     )
 }

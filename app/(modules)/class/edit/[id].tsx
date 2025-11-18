@@ -1,6 +1,6 @@
-import { SchoolFormData } from '@/app/(modules)/class/components/form/schemas/school-schema';
-import { SchoolForm } from '@/app/(modules)/class/components/form/school-form';
-import { useSchoolContext } from '@/app/(modules)/class/context/hooks/use-school-context';
+import { SchoolForm } from '@/app/(modules)/class/components/form/form';
+import { FormData } from '@/app/(modules)/class/components/form/schemas/schema';
+import { useContext } from '@/app/(modules)/class/context/hooks/use-school-context';
 import { config } from '@gluestack-ui/config';
 import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { useRouter } from 'expo-router';
@@ -13,8 +13,8 @@ export default function NewSchoolScreen() {
     const [isLoading, setIsLoading] = useState(false);
     const { state: {
         id, shift, name, schoolYear
-    } } = useSchoolContext();
-    const handleFormSubmit = async (data: SchoolFormData) => {
+    } } = useContext();
+    const handleFormSubmit = async (data: FormData) => {
         setIsLoading(true);
         await new Promise(resolve => setTimeout(resolve, 1500));
         const schoolDataWithId = { ...data, id };

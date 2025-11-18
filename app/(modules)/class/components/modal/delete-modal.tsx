@@ -1,4 +1,4 @@
-import { useSchoolContext } from '@/app/(modules)/class/context/hooks/use-school-context';
+import { useContext } from '@/app/(modules)/class/context/hooks/use-school-context';
 import { Button, ButtonText } from '@/components/ui/button';
 import { Heading } from '@/components/ui/heading';
 import { CloseIcon, Icon } from '@/components/ui/icon';
@@ -14,7 +14,7 @@ import {
 } from '@gluestack-ui/themed';
 import React from 'react';
 
-export const SchoolModalDelete: React.FC = () => {
+export const ModalDelete: React.FC = () => {
     const {
         state: {
             shift,
@@ -22,7 +22,7 @@ export const SchoolModalDelete: React.FC = () => {
         },
         setShowModal,
         showModal
-    } = useSchoolContext()
+    } = useContext()
     return (
         <Modal
             isOpen={showModal}

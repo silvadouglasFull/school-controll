@@ -1,4 +1,4 @@
-import type { MoreActions as Props } from '@/app/(modules)/class/components/school-list-items/types/more-actions';
+import type { MoreActions as Props } from '@/app/types/more-actions';
 import {
     Actionsheet,
     ActionsheetBackdrop,
@@ -12,7 +12,7 @@ import React from 'react';
 export const MoreActions: React.FC<Props> = ({
     showActionsheet,
     setShowActionsheet,
-    handleDelete,
+    deleteItem,
     handleEdit
 }: Props) => {
     const handleClose = () => setShowActionsheet(false);
@@ -35,7 +35,7 @@ export const MoreActions: React.FC<Props> = ({
                 </ActionsheetItem>
                 <ActionsheetItem onPress={() => {
                     handleClose()
-                    handleDelete()
+                    deleteItem()
                 }}>
                     <ActionsheetItemText>Delete School</ActionsheetItemText>
                 </ActionsheetItem>

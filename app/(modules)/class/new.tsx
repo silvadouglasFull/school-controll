@@ -1,5 +1,5 @@
-import { SchoolFormData } from '@/app/(modules)/class/components/form/schemas/school-schema';
-import { SchoolForm } from '@/app/(modules)/class/components/form/school-form';
+import { SchoolForm } from '@/app/(modules)/class/components/form/form';
+import { FormData } from '@/app/(modules)/class/components/form/schemas/schema';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
@@ -8,7 +8,7 @@ export default function NewSchoolScreen() {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleFormSubmit = async (data: SchoolFormData) => {
+    const handleFormSubmit = async (data: FormData) => {
         setIsLoading(true);
         await new Promise(resolve => setTimeout(resolve, 1500));
         const schoolDataWithId = { ...data, id: uuidv4() };

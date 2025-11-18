@@ -1,5 +1,7 @@
-import { SchoolFormData, schoolSchema } from '@/app/(modules)/class/components/form/schemas/school-schema';
-import { SchoolFormProps } from '@/app/(modules)/class/components/form/types/school-form.interface';
+import { FormData, schema } from '@/app/(modules)/class/components/form/schemas/schema';
+import type { FormProps } from '@/app/types/form';
+import { pickDocument } from '@/app/util/document-picker/document-picker';
+import { InputFileImage } from '@/components/input-file-image/input-file-image';
 import {
     AlertCircleIcon,
     Box,
@@ -12,36 +14,32 @@ import {
     FormControlLabel,
     FormControlLabelText,
     Heading,
-    Icon,
     Input,
     InputField,
     KeyboardAvoidingView,
     ScrollView,
-    Text,
-    VStack,
+    VStack
 } from '@gluestack-ui/themed';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { PlusIcon } from 'lucide-react-native';
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Image, Platform } from 'react-native';
-import { pickDocument } from '../../util/document-picker';
+import { Platform } from 'react-native';
 export function SchoolForm({
     onSubmit,
     defaultValues,
     isLoading,
-}: SchoolFormProps) {
+}: FormProps) {
     const [image, setImage] = useState<string>('')
     const {
         control,
         handleSubmit,
         formState: { errors },
         setValue
-    } = useForm<SchoolFormData>({
-        resolver: zodResolver(schoolSchema),
+    } = useForm<FormData>({
+        resolver: zodResolver(schema),
         defaultValues: defaultValues || {
             name: '',
-            schoolYear: 0,
+            schoolYear: 1,
             shift: 'After',
         },
     });
@@ -60,19 +58,10 @@ export function SchoolForm({
                 <Box p="$4" flex={1} justifyContent="center">
                     <VStack space="xl">
                         <Heading>Register Of Class</Heading>
-                        {image ? (
-                            <Image source={{ uri: image }}
-                                style={{ width: '100%', height: 200 }}
-                            />
-                        ) :
-                            (<Button onPress={handleImage} mt="$4">
-                                <Icon as={PlusIcon} />
-                                <Text>
-                                    Add Photo of Class
-                                </Text>
-                            </Button>
-                            )
-                        }
+                        <InputFileImage
+                            handleImage={handleImage}
+                            image={image}
+                        />
                         <Controller
                             control={control}
                             name="name"

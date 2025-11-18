@@ -1,7 +1,7 @@
-import { useSchoolContext } from "@/app/(modules)/class/context/hooks/use-school-context";
+import { UseItems as UseItemsType } from "@/app/(modules)/class/components/hooks/types/use-items";
+import { useContext } from "@/app/(modules)/class/context/hooks/use-school-context";
 import { useRouter } from "expo-router";
-
-export const UseItems = () => {
+export const UseItems = (): UseItemsType => {
     const router = useRouter();
     const {
         state: {
@@ -10,15 +10,15 @@ export const UseItems = () => {
             name,
             schoolYear
         }
-    } = useSchoolContext()
-    const { setState, setShowModal } = useSchoolContext()
+    } = useContext()
+    const { setState, setShowModal } = useContext()
     const handleEdit = (): void => {
         router.push({
             pathname: `/class/edit/[id]`,
             params: { id, shift, name, schoolYear: schoolYear.toString() }
         });
     };
-    const handleDelete = (): void => {
+    const deleteItem = (): void => {
         setState({
             shift,
             id,
@@ -29,6 +29,6 @@ export const UseItems = () => {
     }
     return {
         handleEdit,
-        handleDelete
+        deleteItem
     }
 }

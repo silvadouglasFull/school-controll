@@ -1,7 +1,7 @@
 import { ACCEPTED_IMAGE_TYPES, MAX_FILE_SIZE } from '@/config/upload-files';
 import { z } from 'zod';
 
-export const schoolSchema = z.object({
+export const schema = z.object({
     name: z.string({ error: 'The name is required.' }).min(5, {
         message: 'The name must be at least 5 characters long.',
     }),
@@ -15,4 +15,4 @@ export const schoolSchema = z.object({
         .refine((file) => ACCEPTED_IMAGE_TYPES.includes(file.type)).optional()
 });
 
-export type SchoolFormData = z.infer<typeof schoolSchema>;
+export type FormData = z.infer<typeof schema>;

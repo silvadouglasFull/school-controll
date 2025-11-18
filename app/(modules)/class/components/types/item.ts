@@ -1,4 +1,4 @@
-export type SchoolItem = {
+export type Item = {
     id: string
     name: string
     shift: 'Morning' | 'Afternoon' | 'Evening'

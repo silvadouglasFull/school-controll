@@ -1,7 +1,7 @@
-import { SchoolItem } from "@/app/(modules)/class/components/types/school-item";
+import { Item } from "@/app/(modules)/class/components/types/item";
 import { faker } from '@faker-js/faker';
 
-export const schoolItems: SchoolItem[] = Array.from({ length: 10 }, () => ({
+export const Items: Item[] = Array.from({ length: 10 }, () => ({
     id: faker.string.uuid(),
     name: faker.company.name(),
     shift: faker.helpers.arrayElement(['Morning', 'Afternoon', 'Evening']),
