@@ -1,4 +1,4 @@
-import { ShcoolContextProvider as ClassContextProvider } from '@/app/(modules)/class/context/school-context-provider';
+import { ContextProvider as ClassContextProvider } from '@/app/(modules)/class/context/context-provider';
 import { ShcoolContextProvider } from '@/app/(modules)/school/context/school-context-provider';
 import { config } from '@gluestack-ui/config';
 import { GluestackUIProvider } from '@gluestack-ui/themed';

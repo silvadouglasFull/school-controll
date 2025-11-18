@@ -1,4 +1,4 @@
-import { SchoolForm } from '@/app/(modules)/class/components/form/form';
+import { Form } from '@/app/(modules)/class/components/form/form';
 import { FormData } from '@/app/(modules)/class/components/form/schemas/schema';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
@@ -18,7 +18,7 @@ export default function NewSchoolScreen() {
     };
     return (
         <>
-            <SchoolForm onSubmit={handleFormSubmit} isLoading={isLoading} />
+            <Form onSubmit={handleFormSubmit} isLoading={isLoading} />
         </>
     );
 }

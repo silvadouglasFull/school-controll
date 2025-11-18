@@ -22,13 +22,13 @@ import {
 } from '@gluestack-ui/themed';
 import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, type Resolver } from 'react-hook-form';
 import { Platform } from 'react-native';
-export function SchoolForm({
+export function Form({
     onSubmit,
     defaultValues,
     isLoading,
-}: FormProps) {
+}: FormProps<FormData>) {
     const [image, setImage] = useState<string>('')
     const {
         control,
@@ -36,7 +36,7 @@ export function SchoolForm({
         formState: { errors },
         setValue
     } = useForm<FormData>({
-        resolver: zodResolver(schema),
+        resolver: zodResolver(schema) as unknown as Resolver<FormData, any, FormData>,
         defaultValues: defaultValues || {
             name: '',
             schoolYear: 1,

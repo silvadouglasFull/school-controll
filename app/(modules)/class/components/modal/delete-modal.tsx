@@ -1,19 +1,11 @@
-import { useContext } from '@/app/(modules)/class/context/hooks/use-school-context';
-import { Button, ButtonText } from '@/components/ui/button';
-import { Heading } from '@/components/ui/heading';
-import { CloseIcon, Icon } from '@/components/ui/icon';
-import { Text } from '@/components/ui/text';
+import { useContext } from '@/app/(modules)/class/context/hooks/use-context';
+import { ModalDeleteContent } from '@/components/modal/modal-delete-content';
 import {
     Modal,
     ModalBackdrop,
-    ModalBody,
-    ModalCloseButton,
-    ModalContent,
-    ModalFooter,
-    ModalHeader,
+    ModalContent
 } from '@gluestack-ui/themed';
 import React from 'react';
-
 export const ModalDelete: React.FC = () => {
     const {
         state: {
@@ -23,50 +15,27 @@ export const ModalDelete: React.FC = () => {
         setShowModal,
         showModal
     } = useContext()
+    const cancelAction = () => {
+        setShowModal(false)
+    }
+    const confirmedAction = () => {
+        setShowModal(false)
+    }
+    const onClose = () => setShowModal(false)
     return (
         <Modal
             isOpen={showModal}
-            onClose={() => {
-                setShowModal(false);
-            }}
+            onClose={onClose}
             size='lg'
         >
             <ModalBackdrop />
             <ModalContent>
-                <ModalHeader>
-                    <Heading size="lg">
-                        Delete School {name}
-                    </Heading>
-                    <ModalCloseButton>
-                        <Icon as={CloseIcon} />
-                    </ModalCloseButton>
-                </ModalHeader>
-                <ModalBody>
-                    <Text>
-                        Do you want to delete School {name} located at the shift {shift}?
-                    </Text>
-                </ModalBody>
-                <ModalFooter>
-                    <Button
-                        variant="outline"
-                        action="secondary"
-                        className="mr-3"
-                        onPress={() => {
-                            setShowModal(false);
-                        }}
-                    >
-                        <ButtonText>Cancel</ButtonText>
-                    </Button>
-                    <Button
-                        variant='solid'
-                        action='primary'
-                        onPress={() => {
-                            setShowModal(false);
-                        }}
-                    >
-                        <ButtonText>Yes</ButtonText>
-                    </Button>
-                </ModalFooter>
+                <ModalDeleteContent
+                    cancelAction={cancelAction}
+                    confirmedAction={confirmedAction}
+                    messageConfirmedDelete={`Do you want to delete School ${name} located at the shift ${shift}?`}
+                    title={`Delete School ${name}`}
+                />
             </ModalContent>
         </Modal>
     );

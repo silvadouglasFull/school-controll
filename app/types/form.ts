@@ -1,7 +1,7 @@
-import { FormData as ClassFormData } from '@/app/(modules)/class/components/form/schemas/schema';
-import { SchoolFormData } from '@/app/(modules)/school/components/form/schemas/school-schema';
-export interface FormProps {
-    onSubmit: (data: ClassFormData | SchoolFormData) => void;
-    defaultValues?: ClassFormData | SchoolFormData;
+import { FieldValues } from 'react-hook-form';
+
+export interface FormProps<T extends FieldValues> {
+    onSubmit: (data: T) => void;
+    defaultValues?: T;
     isLoading?: boolean;
 }

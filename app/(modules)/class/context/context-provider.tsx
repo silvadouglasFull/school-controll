@@ -1,9 +1,9 @@
 import { Item } from "@/app/(modules)/class/components/types/item";
-import { SchoolContext } from "@/app/(modules)/class/context/school-context";
-import type { SchoolContextProvider as SchoolContextProviderType } from "@/app/(modules)/class/context/types/school-context-provider";
+import { ClassContext } from "@/app/(modules)/class/context/context";
+import type { ContextProvider as ContextProviderType } from "@/app/types/context-provider";
 import React, { useState } from "react";
 
-export const ShcoolContextProvider: React.FC<SchoolContextProviderType> = ({ children }: SchoolContextProviderType) => {
+export const ContextProvider: React.FC<ContextProviderType> = ({ children }: ContextProviderType) => {
     const [state, setState] = useState<Item>({
         shift: 'Afternoon',
         id: '',
@@ -13,13 +13,13 @@ export const ShcoolContextProvider: React.FC<SchoolContextProviderType> = ({ chi
     const [showModal, setShowModal] = useState<boolean>(false)
 
     return (
-        <SchoolContext.Provider value={{
+        <ClassContext.Provider value={{
             state,
             setState,
             setShowModal,
             showModal
         }}>
             {children}
-        </SchoolContext.Provider>
+        </ClassContext.Provider>
     )
 }

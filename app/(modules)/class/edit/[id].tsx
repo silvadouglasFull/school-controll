@@ -1,14 +1,12 @@
-import { SchoolForm } from '@/app/(modules)/class/components/form/form';
+import { Form } from '@/app/(modules)/class/components/form/form';
 import { FormData } from '@/app/(modules)/class/components/form/schemas/schema';
-import { useContext } from '@/app/(modules)/class/context/hooks/use-school-context';
+import { useContext } from '@/app/(modules)/class/context/hooks/use-context';
 import { config } from '@gluestack-ui/config';
 import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 
-
-
-export default function NewSchoolScreen() {
+export default function EditClass() {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const { state: {
@@ -23,7 +21,7 @@ export default function NewSchoolScreen() {
     };
     return (
         <GluestackUIProvider config={config}>
-            <SchoolForm
+            <Form
                 onSubmit={handleFormSubmit}
                 isLoading={isLoading}
                 defaultValues={{

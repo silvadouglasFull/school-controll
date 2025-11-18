@@ -1,9 +1,9 @@
+import { CardItem } from '@/app/(modules)/class/components/card/card-item';
+import { UseItems } from '@/app/(modules)/class/components/hooks/use-items';
 import type { Item as Props } from '@/app/(modules)/class/components/types/item';
+import { MoreActions } from '@/components/more-actions/more-actions';
 import React, { useState } from 'react';
 import { TouchableOpacity } from 'react-native';
-import { CardItem } from '../card/card-item';
-import { UseItems } from '../hooks/use-items';
-import { MoreActions } from './school-more-actions';
 
 export const Item: React.FC<{
     items?: Props[]
@@ -28,6 +28,7 @@ export const Item: React.FC<{
                 handleEdit={handleEdit}
                 setShowActionsheet={setShowActionsheet}
                 showActionsheet={showActionsheet}
+                actionsheetItemText='Class'
             />
         </>
     );

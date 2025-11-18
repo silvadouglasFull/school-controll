@@ -1,5 +1,5 @@
 import React from "react"
 
-export type SchoolContextProvider = {
+export type ContextProvider = {
     children: React.ReactNode
 }
