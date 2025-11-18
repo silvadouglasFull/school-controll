@@ -1,8 +1,9 @@
 import { Form } from '@/app/(modules)/class/components/form/form';
 import { FormData } from '@/app/(modules)/class/components/form/schemas/schema';
+import { service } from '@/app/(modules)/class/services/class';
+import { AxiosError } from 'axios';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
 export default function NewSchoolScreen() {
     const router = useRouter();
@@ -10,11 +11,20 @@ export default function NewSchoolScreen() {
 
     const handleFormSubmit = async (data: FormData) => {
         setIsLoading(true);
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        const schoolDataWithId = { ...data, id: uuidv4() };
-        console.log('Class data with ID:', schoolDataWithId);
-        setIsLoading(false);
-        router.back();
+        try {
+            const { schoolYear, ...rest } = data
+            const response = await service.create({
+                ...rest,
+                schoolYear: +schoolYear
+            });
+            response.id && router.back();
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                console.log(error.response?.data)
+            }
+        } finally {
+            setIsLoading(false);
+        }
     };
     return (
         <>

@@ -1,7 +1,7 @@
 export type Item = {
     id: string
     name: string
-    shift: 'Morning' | 'Afternoon' | 'Evening'
+    shift: string
     schoolYear: number
     image?: string
 }

@@ -1,6 +1,7 @@
 
 import { Items } from "@/app/(modules)/class/components/list-items/constants/items";
 import type { Item as ItemProps } from '@/app/(modules)/class/components/types/item';
+import { Repository } from "./repositories/repository";
 export const fetchMoreItems = (page: number): Promise<ItemProps[]> => {
     return new Promise(resolve => {
         setTimeout(() => {
@@ -9,3 +10,4 @@ export const fetchMoreItems = (page: number): Promise<ItemProps[]> => {
         }, 1000);
     });
 };
+export const service = new Repository()

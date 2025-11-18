@@ -2,7 +2,7 @@ import { Items } from "@/app/(modules)/class/components/list-items/constants/ite
 import { Item } from "@/app/(modules)/class/components/list-items/list";
 import { ModalDelete } from "@/app/(modules)/class/components/modal/delete-modal";
 import type { Item as ItemProps } from '@/app/(modules)/class/components/types/item';
-import { fetchMoreItems } from "@/app/(modules)/class/services/class";
+import { service } from "@/app/(modules)/class/services/class";
 import { SkeletonLoading } from '@/components/skeleton/preview-loading';
 import { AppTabs } from '@/components/tabs/app-tabs';
 import { Button, ScrollView, Spinner, Text, View } from "@gluestack-ui/themed";
@@ -10,7 +10,7 @@ import { useRouter } from "expo-router";
 import type React from "react";
 import { useState } from "react";
 
-const School: React.FC = () => {
+const ClassScreen: React.FC = () => {
     const { navigate } = useRouter()
     const [items, setItems] = useState<ItemProps[]>(Items.slice(0, 5));
     const [page, setPage] = useState(0);
@@ -19,7 +19,7 @@ const School: React.FC = () => {
     const handleLoadMore = async () => {
         setIsLoading(true);
         const nextPage = page + 1;
-        const newItems = await fetchMoreItems(nextPage);
+        const newItems = await service.getPaginated(nextPage, 5);
         setItems(prevItems => [...prevItems, ...newItems]);
         setPage(nextPage);
         setIsLoading(false);
@@ -52,4 +52,4 @@ const School: React.FC = () => {
         </View>
     )
 }
-export default School;
+export default ClassScreen;
