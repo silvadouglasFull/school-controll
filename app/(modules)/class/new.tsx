@@ -1,5 +1,5 @@
-import { SchoolFormData } from '@/app/(modules)/school/components/form/schemas/school-schema';
-import { SchoolForm } from '@/app/(modules)/school/components/form/school-form';
+import { SchoolFormData } from '@/app/(modules)/class/components/form/schemas/school-schema';
+import { SchoolForm } from '@/app/(modules)/class/components/form/school-form';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
@@ -12,6 +12,7 @@ export default function NewSchoolScreen() {
         setIsLoading(true);
         await new Promise(resolve => setTimeout(resolve, 1500));
         const schoolDataWithId = { ...data, id: uuidv4() };
+        console.log('Class data with ID:', schoolDataWithId);
         setIsLoading(false);
         router.back();
     };

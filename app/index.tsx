@@ -7,6 +7,7 @@ const Home: React.FC = () => {
     return (
         <Box className="bg-primary-500 p-5">
             <Button onPress={() => router.push('/school')}>School</Button>
+            <Button onPress={() => router.push('/class')}>Class</Button>
         </Box>
     )
 }

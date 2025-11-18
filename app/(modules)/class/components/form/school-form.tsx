@@ -1,5 +1,5 @@
-import { SchoolFormData, schoolSchema } from '@/app/(modules)/school/components/form/schemas/school-schema';
-import { SchoolFormProps } from '@/app/(modules)/school/components/form/types/school-form.interface';
+import { SchoolFormData, schoolSchema } from '@/app/(modules)/class/components/form/schemas/school-schema';
+import { SchoolFormProps } from '@/app/(modules)/class/components/form/types/school-form.interface';
 import {
     AlertCircleIcon,
     Box,
@@ -41,8 +41,8 @@ export function SchoolForm({
         resolver: zodResolver(schoolSchema),
         defaultValues: defaultValues || {
             name: '',
-            address: '',
-            numberOfClasses: 0
+            schoolYear: 0,
+            shift: 'After',
         },
     });
     const handleImage = async () => {
@@ -59,7 +59,7 @@ export function SchoolForm({
                 showsVerticalScrollIndicator={false}>
                 <Box p="$4" flex={1} justifyContent="center">
                     <VStack space="xl">
-                        <Heading>Register Of School</Heading>
+                        <Heading>Register Of Class</Heading>
                         {image ? (
                             <Image source={{ uri: image }}
                                 style={{ width: '100%', height: 200 }}
@@ -68,7 +68,7 @@ export function SchoolForm({
                             (<Button onPress={handleImage} mt="$4">
                                 <Icon as={PlusIcon} />
                                 <Text>
-                                    Add Photo of School
+                                    Add Photo of Class
                                 </Text>
                             </Button>
                             )
@@ -79,11 +79,11 @@ export function SchoolForm({
                             render={({ field: { onChange, onBlur, value } }) => (
                                 <FormControl isInvalid={!!errors.name} isRequired>
                                     <FormControlLabel>
-                                        <FormControlLabelText>Name School</FormControlLabelText>
+                                        <FormControlLabelText>Name Class</FormControlLabelText>
                                     </FormControlLabel>
                                     <Input>
                                         <InputField
-                                            placeholder="Ex: School Estadual ABC"
+                                            placeholder="Ex: Class Estadual ABC"
                                             onBlur={onBlur}
                                             onChangeText={onChange}
                                             value={value}
@@ -101,15 +101,15 @@ export function SchoolForm({
                         />
                         <Controller
                             control={control}
-                            name="address"
+                            name="shift"
                             render={({ field: { onChange, onBlur, value } }) => (
-                                <FormControl isInvalid={!!errors.address} isRequired>
+                                <FormControl isInvalid={!!errors.shift} isRequired>
                                     <FormControlLabel>
-                                        <FormControlLabelText>Address</FormControlLabelText>
+                                        <FormControlLabelText>Shift</FormControlLabelText>
                                     </FormControlLabel>
                                     <Input>
                                         <InputField
-                                            placeholder="Ex: Rua das Flores, 123"
+                                            placeholder="Ex: Morning, Afternoon, Evening"
                                             onBlur={onBlur}
                                             onChangeText={onChange}
                                             value={value}
@@ -119,7 +119,7 @@ export function SchoolForm({
                                     <FormControlError>
                                         <FormControlErrorIcon as={AlertCircleIcon} />
                                         <FormControlErrorText>
-                                            {errors.address?.message}
+                                            {errors.shift?.message}
                                         </FormControlErrorText>
                                     </FormControlError>
                                 </FormControl>
@@ -127,12 +127,12 @@ export function SchoolForm({
                         />
                         <Controller
                             control={control}
-                            name="numberOfClasses"
+                            name="schoolYear"
                             render={({ field: { onChange, onBlur, value } }) => (
-                                <FormControl isInvalid={!!errors.numberOfClasses} isRequired>
+                                <FormControl isInvalid={!!errors.schoolYear} isRequired>
                                     <FormControlLabel>
                                         <FormControlLabelText>
-                                            number Of Classes
+                                            schoolYear
                                         </FormControlLabelText>
                                     </FormControlLabel>
                                     <Input>
@@ -148,7 +148,7 @@ export function SchoolForm({
                                     <FormControlError>
                                         <FormControlErrorIcon as={AlertCircleIcon} />
                                         <FormControlErrorText>
-                                            {errors.numberOfClasses?.message}
+                                            {errors.schoolYear?.message}
                                         </FormControlErrorText>
                                     </FormControlError>
                                 </FormControl>
@@ -159,7 +159,7 @@ export function SchoolForm({
                             isDisabled={isLoading}
                             mt="$4">
                             <ButtonText>
-                                {isLoading ? 'Saving...' : 'Save School'}
+                                {isLoading ? 'Saving...' : 'Save Class'}
                             </ButtonText>
                         </Button>
                     </VStack>

@@ -1,6 +1,6 @@
-import { SchoolFormData } from '@/app/(modules)/school/components/form/schemas/school-schema';
-import { SchoolForm } from '@/app/(modules)/school/components/form/school-form';
-import { useSchoolContext } from '@/app/(modules)/school/context/hooks/use-school-context';
+import { SchoolFormData } from '@/app/(modules)/class/components/form/schemas/school-schema';
+import { SchoolForm } from '@/app/(modules)/class/components/form/school-form';
+import { useSchoolContext } from '@/app/(modules)/class/context/hooks/use-school-context';
 import { config } from '@gluestack-ui/config';
 import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { useRouter } from 'expo-router';
@@ -12,15 +12,12 @@ export default function NewSchoolScreen() {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const { state: {
-        id, address, name, numberOfClasses
+        id, shift, name, schoolYear
     } } = useSchoolContext();
     const handleFormSubmit = async (data: SchoolFormData) => {
         setIsLoading(true);
-        console.log('Simulando chamada de API para salvar escola...');
         await new Promise(resolve => setTimeout(resolve, 1500));
-        console.log('Escola salva com sucesso (simulado)!');
         const schoolDataWithId = { ...data, id };
-        console.log('Nova escola para salvar:', schoolDataWithId);
         setIsLoading(false);
         router.back();
     };
@@ -30,9 +27,9 @@ export default function NewSchoolScreen() {
                 onSubmit={handleFormSubmit}
                 isLoading={isLoading}
                 defaultValues={{
-                    address,
+                    shift,
                     name,
-                    numberOfClasses: numberOfClasses ? Number(numberOfClasses) : 0,
+                    schoolYear: schoolYear ? Number(schoolYear) : 0,
                 }} />
         </GluestackUIProvider>
     );
